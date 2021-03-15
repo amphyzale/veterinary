@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "role_data")
 public class Role extends BaseEntity {
 
     @Id
@@ -14,7 +14,7 @@ public class Role extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "role_data", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Role() {
