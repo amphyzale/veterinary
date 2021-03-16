@@ -2,6 +2,7 @@ package net.courseproject.alex.veterinary.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.courseproject.alex.veterinary.domain.Role;
 import net.courseproject.alex.veterinary.security.jwt.JwtAuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
     @Value("${jwt.token.secret}")

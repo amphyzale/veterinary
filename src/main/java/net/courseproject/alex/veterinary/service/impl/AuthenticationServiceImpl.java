@@ -5,15 +5,15 @@ import net.courseproject.alex.veterinary.dto.request.AuthenticationRequest;
 import net.courseproject.alex.veterinary.dto.request.UserRegisterRequest;
 import net.courseproject.alex.veterinary.dto.response.LoginResponse;
 import net.courseproject.alex.veterinary.dto.response.UserRegisterResponse;
-import net.courseproject.alex.veterinary.manager.AuthenticationManager;
-import net.courseproject.alex.veterinary.service.AuthenticationService;
+import net.courseproject.alex.veterinary.manager.IAuthenticationManager;
+import net.courseproject.alex.veterinary.service.IAuthenticationService;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class AuthenticationServiceImpl implements IAuthenticationService {
 
-    private final AuthenticationManager authenticationManager;
+    private final IAuthenticationManager authenticationManager;
 
     @Override
     public LoginResponse login(AuthenticationRequest requestDto) {

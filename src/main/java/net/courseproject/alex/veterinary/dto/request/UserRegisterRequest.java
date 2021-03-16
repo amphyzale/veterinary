@@ -3,11 +3,13 @@ package net.courseproject.alex.veterinary.dto.request;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter
@@ -38,18 +40,18 @@ public class UserRegisterRequest {
     @NotBlank
     @JsonProperty("locale")
     private String locale;
-    @NotBlank
-    @JsonProperty("gender")
+    @NotNull
+    @JsonDeserialize
     private Gender gender;
 
     public enum Gender {
-        MALE("male"),
+        MALE("MALE"),
 
-        FEMALE("female"),
+        FEMALE("FEMALE"),
 
-        IT("it");
+        IT("IT");
 
-        private String value;
+        private final String value;
 
         Gender(String value) {
             this.value = value;

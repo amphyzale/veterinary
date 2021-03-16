@@ -1,1 +1,15 @@
-docker run -p 5432:5432 --name veterinary -e POSTGRES_PASSWORD=root -d postgres
+version: '3.8'
+services:
+  db:
+    container_name: veterinary
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: veterinary
+    ports:
+      - "5432:5432"
+
+volumes:
+  pg_data:

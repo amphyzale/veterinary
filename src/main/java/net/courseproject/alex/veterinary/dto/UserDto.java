@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Accessors(chain = true)
 public class UserDto extends AbstractDto {
-    private String id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String patronymic;

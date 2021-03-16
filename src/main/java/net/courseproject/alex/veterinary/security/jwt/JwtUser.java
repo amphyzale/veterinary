@@ -13,7 +13,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class JwtUser implements UserDetails {
 
-    private final String id;
+    private final Long id;
     private final String firstName;
     private final String lastName;
     private final String patronymic;
@@ -47,7 +47,7 @@ public class JwtUser implements UserDetails {
     }
 
     @JsonIgnore
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

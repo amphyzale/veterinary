@@ -5,7 +5,7 @@ import net.courseproject.alex.veterinary.dto.request.AuthenticationRequest;
 import net.courseproject.alex.veterinary.dto.request.UserRegisterRequest;
 import net.courseproject.alex.veterinary.dto.response.LoginResponse;
 import net.courseproject.alex.veterinary.dto.response.UserRegisterResponse;
-import net.courseproject.alex.veterinary.service.AuthenticationService;
+import net.courseproject.alex.veterinary.service.IAuthenticationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,19 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AuthenticationController {
     
-    private final AuthenticationService authenticationService;
+    private final IAuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody @Validated AuthenticationRequest requestDto) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Validated AuthenticationRequest request) {
             ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
-            LoginResponse response = authenticationService.login(requestDto);
+            LoginResponse response = authenticationService.login(request);
             return responseEntity.body(response);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserRegisterResponse> register(@RequestBody @Validated UserRegisterRequest guestDto) {
+    public ResponseEntity<UserRegisterResponse> register(@RequestBody @Validated UserRegisterRequest request) {
             ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(HttpStatus.CREATED);
-            UserRegisterResponse response = authenticationService.register(guestDto);
+            UserRegisterResponse response = authenticationService.register(request);
             return responseEntity.body(response);
     }
 }

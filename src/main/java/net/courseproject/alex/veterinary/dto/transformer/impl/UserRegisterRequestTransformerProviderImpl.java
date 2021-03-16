@@ -24,6 +24,8 @@ public class UserRegisterRequestTransformerProviderImpl {
         to.setLastName(domain.getLastName());
         to.setPatronymic(domain.getPatronymic());
         to.setFio(buildFIO(domain));
+        to.setEmail(domain.getEmail());
+        to.setPassword(domain.getPassword());
         to.setUserPic(domain.getUserPic());
         to.setPhone(domain.getPhone());
         to.setUsername(domain.getEmail());

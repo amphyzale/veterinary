@@ -1,6 +1,10 @@
 package net.courseproject.alex.veterinary.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import net.courseproject.alex.veterinary.util.GUIDGenerator;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,9 +15,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "user_data")
 public class User extends BaseEntity implements Serializable {
+    @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
+    @Column(name = "guid")
+    @GeneratorType(type = GUIDGenerator.class, when = GenerationTime.INSERT)
+    private String guid;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -51,8 +59,9 @@ public class User extends BaseEntity implements Serializable {
     public User() {
     }
 
-    public User(String id, String firstName, String lastName, String patronymic, String fio, String userPic, String email, String phone, String password, String username, String locale, Gender gender, List<Role> roles, LocalDateTime lastVisit) {
+    public User(Long id, String guid, String firstName, String lastName, String patronymic, String fio, String userPic, String email, String phone, String password, String username, String locale, Gender gender, List<Role> roles, LocalDateTime lastVisit) {
         this.id = id;
+        this.guid = guid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.patronymic = patronymic;
@@ -68,12 +77,20 @@ public class User extends BaseEntity implements Serializable {
         this.lastVisit = lastVisit;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 
     public String getFirstName() {
@@ -185,11 +202,11 @@ public class User extends BaseEntity implements Serializable {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return id.equals(user.id) && email.equals(user.email) && phone.equals(user.phone);
+        return id.equals(user.id) && guid.equals(user.guid) && email.equals(user.email) && phone.equals(user.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, phone);
+        return Objects.hash(id, guid, email, phone);
     }
 }
