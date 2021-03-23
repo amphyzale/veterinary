@@ -1,10 +1,9 @@
 jwt:
   token:
     secret:
-      "jwtappcourse"
+      "jwtappcourseproject"
     expired:
       1800_000
-
 spring:
   datasource:
     url:
@@ -15,4 +14,16 @@ spring:
       root
   jpa:
     generate-ddl:
+      true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation:
+              true
+        temp:
+          use_jdbc_metadata_defaults:
+            false
+  main:
+    allow-bean-definition-overriding:
       true
