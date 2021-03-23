@@ -7,11 +7,11 @@ jwt:
 spring:
   datasource:
     url:
-      jdbc:postgresql://localhost:5432/veterinary
+      jdbc:postgres://xacjphlemlaumr:a12e2be79f252553c4d5245920aa5c2e033614936365a2578ed0b5056130185b@ec2-54-74-35-87.eu-west-1.compute.amazonaws.com:5432/d1p0ugm21eqe5l
     username:
-      postgres
+      xacjphlemlaumr
     password:
-      root
+      a12e2be79f252553c4d5245920aa5c2e033614936365a2578ed0b5056130185b
   jpa:
     generate-ddl:
       true
