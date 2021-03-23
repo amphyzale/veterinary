@@ -16,6 +16,8 @@ spring:
     password:
       a12e2be79f252553c4d5245920aa5c2e033614936365a2578ed0b5056130185b
   jpa:
+    database-platform:
+      org.hibernate.dialect.PostgreSQLDialect
     generate-ddl:
       true
     properties:
@@ -27,9 +29,6 @@ spring:
         temp:
           use_jdbc_metadata_defaults:
             false
-  database-platform:
-    org.hibernate.dialect.PostgreSQL11Dialect
-      
   main:
     allow-bean-definition-overriding:
       true
