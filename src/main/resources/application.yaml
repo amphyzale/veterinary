@@ -1,3 +1,6 @@
+server:
+  port:
+    8080
 jwt:
   token:
     secret:
@@ -24,6 +27,10 @@ spring:
         temp:
           use_jdbc_metadata_defaults:
             false
+  database-platform:
+    org.hibernate.dialect.PostgreSQL11Dialect
+      
   main:
     allow-bean-definition-overriding:
       true
+
