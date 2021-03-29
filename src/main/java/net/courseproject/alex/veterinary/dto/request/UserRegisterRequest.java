@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 public class UserRegisterRequest {
     @NotBlank
     @JsonProperty("firstName")

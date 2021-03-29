@@ -1,5 +1,6 @@
 package net.courseproject.alex.veterinary.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class UserDto extends AbstractDto {
     private String email;
     private Status status;
     private String phone;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastVisit;
     private List<String> roles;
     private String locale;

@@ -1,3 +1,6 @@
+server:
+  port:
+    8080
 jwt:
   token:
     secret:
@@ -13,6 +16,8 @@ spring:
     password:
       root
   jpa:
+    database-platform:
+      org.hibernate.dialect.PostgreSQLDialect
     generate-ddl:
       true
     properties:

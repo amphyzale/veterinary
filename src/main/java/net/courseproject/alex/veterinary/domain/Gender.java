@@ -1,11 +1,11 @@
 package net.courseproject.alex.veterinary.domain;
 
 public enum Gender {
-    ALE("male"),
+    ALE("MALE"),
 
-    FEMALE("female"),
+    FEMALE("FEMALE"),
 
-    IT("it");
+    IT("IT");
 
     String value;
 
