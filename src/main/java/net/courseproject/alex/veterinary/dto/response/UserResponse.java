@@ -1,9 +1,8 @@
-package net.courseproject.alex.veterinary.dto;
+package net.courseproject.alex.veterinary.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import net.courseproject.alex.veterinary.domain.Gender;
 import net.courseproject.alex.veterinary.domain.Status;
 
@@ -11,9 +10,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDto extends AbstractDto {
+@Accessors(chain = true)
+public class UserResponse {
     private Long id;
     private String firstName;
     private String lastName;

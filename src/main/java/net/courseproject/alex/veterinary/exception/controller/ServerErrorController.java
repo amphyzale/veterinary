@@ -3,6 +3,7 @@ package net.courseproject.alex.veterinary.exception.controller;
 import net.courseproject.alex.veterinary.exception.UserAlreadyExistsException;
 import net.courseproject.alex.veterinary.exception.model.ErrorResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -23,5 +24,14 @@ public class ServerErrorController extends ResponseEntityExceptionHandler {
                 .setMessage(ex.getMessage())
                 .setError("Internal Server Error");
         return ResponseEntity.status(520).body(response);
+    }
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    protected ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException exception) {
+        ErrorResponse response = new ErrorResponse()
+                .setStatus(403)
+                .setDateTime(LocalDateTime.now().format(FORMATTER))
+                .setMessage(exception.getMessage());
+        return ResponseEntity.status(403).body(response);
     }
 }

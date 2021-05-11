@@ -1,6 +1,6 @@
 package net.courseproject.alex.veterinary.service.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.courseproject.alex.veterinary.dto.request.AuthenticationRequest;
 import net.courseproject.alex.veterinary.dto.request.UserRegisterRequest;
 import net.courseproject.alex.veterinary.dto.response.LoginResponse;
@@ -10,7 +10,7 @@ import net.courseproject.alex.veterinary.service.IAuthenticationService;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthenticationServiceImpl implements IAuthenticationService {
 
     private final IAuthenticationManager authenticationManager;

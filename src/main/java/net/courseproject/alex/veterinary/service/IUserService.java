@@ -1,11 +1,11 @@
-package net.courseproject.alex.veterinary.manager;
+package net.courseproject.alex.veterinary.service;
 
 import net.courseproject.alex.veterinary.dto.request.UserRequest;
 import net.courseproject.alex.veterinary.dto.response.UserResponse;
 
 import java.util.List;
 
-public interface IUserManager {
+public interface IUserService {
     List<UserResponse> getAllUsers();
     UserResponse getProfile();
     List<UserResponse> findUser(Long id, String email, String fio);

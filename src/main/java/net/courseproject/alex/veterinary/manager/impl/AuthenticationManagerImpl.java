@@ -18,6 +18,8 @@ import net.courseproject.alex.veterinary.repository.UserRepository;
 import net.courseproject.alex.veterinary.security.jwt.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -41,18 +43,25 @@ public class AuthenticationManagerImpl implements IAuthenticationManager {
     @Override
     public LoginResponse login(AuthenticationRequest requestDto) {
         String username = requestDto.getEmail();
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsernameAndStatus(username, Status.ACTIVE);
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
         if (user == null) {
             throw new UsernameNotFoundException("User with username: " + username + " not found");
         }
         String token = jwtTokenProvider.createToken(username, user.getRoles());
-        return new LoginResponse(username, token, user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
+        return new LoginResponse()
+            .setUsername(username)
+            .setToken(token)
+            .setRoles(user.getRoles()
+                    .stream()
+                    .map(Role::getName)
+                    .collect(Collectors.toList())
+            );
     }
 
     @Override
     public UserRegisterResponse register(UserRegisterRequest userRegisterRequest) {
-        if (userRepository.findByUsername(userRegisterRequest.getEmail()) != null) {
+        if (userRepository.findByUsernameAndStatus(userRegisterRequest.getEmail(), Status.ACTIVE) != null) {
             throw new UserAlreadyExistsException("User with this email already exists");
         }
         User user = new User();
@@ -65,6 +74,27 @@ public class AuthenticationManagerImpl implements IAuthenticationManager {
         user.setUpdated(LocalDateTime.now());
         UserDto userDto = new UserDto();
         userTransformerProvider.transformDomainToDto(userRepository.save(user), userDto);
-        return new UserRegisterResponse(userDto);
+        return new UserRegisterResponse()
+                .setUser(userDto);
+    }
+
+    @Override
+    public boolean hasUserRole(SecurityContext context) {
+        return context.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("USER"));
+    }
+
+    @Override
+    public boolean hasAdministratorRole(SecurityContext context) {
+        return context.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ADMINISTRATOR"));
+    }
+
+    @Override
+    public boolean hasDoctorRole(SecurityContext context) {
+        return context.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("DOCTOR"));
+    }
+
+    @Override
+    public boolean hasGrandAdminRole(SecurityContext context) {
+        return context.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("GRAND_ADMIN"));
     }
 }

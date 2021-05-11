@@ -1,6 +1,7 @@
 package net.courseproject.alex.veterinary.security;
 
 import lombok.AllArgsConstructor;
+import net.courseproject.alex.veterinary.domain.Status;
 import net.courseproject.alex.veterinary.domain.User;
 import net.courseproject.alex.veterinary.security.jwt.JwtUserFactory;
 import net.courseproject.alex.veterinary.repository.UserRepository;
@@ -17,7 +18,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(name);
+        User user = userRepository.findByUsernameAndStatus(name, Status.ACTIVE);
         if (user == null) {
             throw new UsernameNotFoundException("User with username: " + name + " not found!");
         }

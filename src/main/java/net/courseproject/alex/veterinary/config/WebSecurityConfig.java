@@ -16,11 +16,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    public static final String USER_ROLE = "USER";
+    public static final String GRAND_ADMIN_ROLE = "GRAND_ADMIN";
+    public static final String ADMINISTRATOR_ROLE = "ADMINISTRATOR";
+    public static final String DOCTOR_ROLE = "DOCTOR";
     private final JwtTokenProvider jwtTokenProvider;
 
     private static final String LOGIN_ENDPOINT = "/veterinary/v1/auth/login";
     private static final String REGISTER_ENDPOINT = "/veterinary/v1/auth/register";
-    private static final String GUEST_ENDPOINT = "/veterinary/v1/message/";
+    private static final String PROFILE_ENDPOINT = "/veterinary/v1/users/**";
 
     @Bean
     @Override
@@ -40,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
                 .antMatchers(REGISTER_ENDPOINT).permitAll()
-                .antMatchers(GUEST_ENDPOINT).permitAll()
+                .antMatchers(PROFILE_ENDPOINT).hasAnyAuthority(USER_ROLE, GRAND_ADMIN_ROLE, ADMINISTRATOR_ROLE, DOCTOR_ROLE)
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

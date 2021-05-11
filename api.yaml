@@ -1,0 +1,442 @@
+swagger: "2.0"
+info:
+  description: "Курсовой проект 'Ветеринарная клиника' "
+  version: "1.0.0"
+  title: "Ветеринарная клиника"
+  contact:
+    email: "minaevam87@gmail.com"
+host: "petstore.swagger.io"
+basePath: "/veterinary/v1"
+tags:
+  - name: "user"
+    description: "Operations with users"
+    externalDocs:
+      description: "Find out more about our project on Trello"
+      url: "https://trello.com"
+schemes:
+  - "https"
+paths:
+  /auth/login:
+    post:
+      tags:
+        - "user"
+      summary: "Login"
+      description: "This can only be done by the logged in user."
+      operationId: "loginUser"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User credentials"
+          required: true
+          schema:
+            $ref: "#/definitions/UserCredentials"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/AuthorizedUser'
+        "400":
+          description: "invalid credentials"
+          schema:
+            $ref: "#/definitions/Error"
+  /auth/register:
+    post:
+      tags:
+        - "user"
+      summary: "Registration"
+      description: ""
+      operationId: "register"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserData"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: "invalid user data"
+          schema:
+            $ref: "#/definitions/Error"
+  /auth/logout:
+    post:
+      tags:
+        - "user"
+      summary: "Logout"
+      description: ""
+      operationId: "logout"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: string
+          required: true
+          description: "user token"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "invalid user data"
+          schema:
+            $ref: "#/definitions/Error"
+  /avatar:
+    put:
+      tags:
+        - "user"
+      summary: "avatar"
+      description: "add user avatar"
+      operationId: "saveAvatar"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: string
+          required: true
+          description: "user token"
+        - in: "formData"
+          name: file
+          type: file
+          required: true
+          description: "avatar file"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      tags:
+        - "user"
+      summary: "avatar"
+      description: "get user avatar"
+      operationId: "getAvatar"
+      produces:
+        - "image/jpeg"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: string
+          required: true
+          description: "user token"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+  /user:
+    get:
+      tags:
+        - "user"
+      summary: "user"
+      description: "get user info"
+      operationId: "getUser"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "token"
+          type: string
+          required: true
+          description: "user token"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+  /user/update:
+    post:
+      tags:
+        - "user"
+      summary: "updateUser"
+      description: "Update User Personal Data"
+      operationId: "updateUser"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserData"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "invalid credentials"
+          schema:
+            $ref: "#/definitions/Error"
+  /pet:
+    post:
+      tags:
+        - "pet"
+      summary: "pet"
+      description: "add user pet"
+      operationId: "savePet"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "add pet object"
+          required: true
+          schema:
+            $ref: "#/definitions/Pet"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      tags:
+        - "pet"
+      summary: "pet"
+      description: "get user pet by id"
+      operationId: "getPet"
+      produces:
+        - "applicaton/json"
+      parameters:
+        - in: "query"
+          name: "petId"
+          type: "string"
+          description: "petId"
+          required: true
+        - in: "header"
+          name: "authorization"
+          type: string
+          required: true
+          description: "user token"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Pet"
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+  /pet/avatar:
+    put:
+      tags:
+        - "pet"
+      summary: "avatar"
+      description: "add pet avatar"
+      operationId: "savePetAvatar"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: string
+          required: true
+          description: "user token"
+        - in: "query"
+          name: "petId"
+          type: string
+          required: true
+          description: "petId"
+        - in: "formData"
+          name: file
+          type: file
+          required: true
+          description: "pet avatar file"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      tags:
+        - "pet"
+      summary: "avatar"
+      description: "get pet avatar"
+      operationId: "getPetAvatar"
+      produces:
+        - "image/jpeg"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: string
+          required: true
+          description: "user token"
+        - in: "query"
+          name: "petId"
+          type: string
+          required: true
+          description: "petId"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+  /pets:
+    get:
+      tags:
+        - "pet"
+      summary: "pet list"
+      description: "get pet list"
+      operationId: "getPets"
+      produces:
+        - "image/jpeg"
+      parameters:
+        - in: "header"
+          name: "authorization"
+          type: string
+          required: true
+          description: "user token"
+        - in: "query"
+          name: "petId"
+          type: string
+          required: true
+          description: "petId"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Pets'
+        "400":
+          description: "wrong input data"
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  UserCredentials:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      patronymic:
+        type: "string"
+      fio:
+        type: "string"
+      userPic:
+        type: "string"
+      email:
+        type: "string"
+      status:
+        type: "string"
+      phone:
+        type: "string"
+      lastVisit:
+        type: "string"
+      roles:
+        type: "array"
+        items:
+          $ref: "#/definitions/Role"
+  UserData:
+    type: "object"
+    properties:
+      firstName:
+        type: "string"
+      patronymic:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      userPic:
+        type: "string"
+      password:
+        type: "string"
+      locale:
+        type: "string"
+      gender:
+        $ref: "#/definitions/Gender"
+  AuthorizedUser:
+    type: "object"
+    properties:
+      userName:
+        type: "string"
+      token:
+        type: "string"
+      roles:
+        type: "array"
+        items:
+          $ref: "#/definitions/Role"
+  Gender:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+  Role:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+  Token:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+  Pet:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+      petId:
+        type: "string"
+      species:
+        type: "string"
+      breed:
+        type: "string"
+      dateOfBith:
+        type: "string"
+        format: "date"
+      name:
+        type: "string"
+      avatar:
+        type: "string"
+        format: "base64"
+  Pets:
+    type: "array"
+    items:
+      $ref: "#/definitions/Pet"
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
