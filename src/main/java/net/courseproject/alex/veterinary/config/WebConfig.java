@@ -12,8 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-                .allowedOrigins("https://veterinary-front.herokuapp.com", "http://localhost:4200", "https://localhost:4200")
+                .allowedMethods("*")
+                .allowedOriginPatterns("*")
                 .allowCredentials(true);
     }
 }
