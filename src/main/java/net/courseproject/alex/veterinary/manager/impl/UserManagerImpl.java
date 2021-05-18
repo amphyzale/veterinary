@@ -1,6 +1,7 @@
 package net.courseproject.alex.veterinary.manager.impl;
 
 import lombok.RequiredArgsConstructor;
+import net.courseproject.alex.veterinary.domain.Gender;
 import net.courseproject.alex.veterinary.domain.Status;
 import net.courseproject.alex.veterinary.domain.User;
 import net.courseproject.alex.veterinary.dto.request.UserRequest;
@@ -122,7 +123,7 @@ public class UserManagerImpl implements IUserManager {
         user.setEmail(userRequest.getEmail());
         user.setPhone(userRequest.getPhone());
         user.setLocale(userRequest.getLocale());
-        user.setGender(userRequest.getGender());
+        user.setGender(Gender.valueOf(userRequest.getGender().name()));
         LocalDateTime now = LocalDateTime.now();
         user.setUpdated(now);
         user.setLastVisit(now);
