@@ -57,12 +57,6 @@ public class Doctor extends BaseEntity {
     @Column(name = "gender")
     private Gender gender;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private List<Role> roles;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "last_visit")
     private LocalDateTime lastVisit;
@@ -184,14 +178,6 @@ public class Doctor extends BaseEntity {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
     }
 
     public LocalDateTime getLastVisit() {

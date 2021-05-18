@@ -41,17 +41,17 @@ public class UserController {
         return responseEntity.body(response);
     }
 
-    @PatchMapping("/update_profile")
-    public ResponseEntity<UserResponse> updateProfile(@RequestParam UserRequest userRequest) {
+    @PostMapping("/update_profile")
+    public ResponseEntity<UserResponse> updateProfile(@RequestBody UserRequest userRequest) {
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         UserResponse response = userService.updateProfile(userRequest);
         return responseEntity.body(response);
     }
 
-    @PatchMapping("/update_user")
+    @PostMapping("/update_user")
     public ResponseEntity<UserResponse> updateUserById(
             @RequestParam Long id,
-            @RequestParam UserRequest userRequest
+            @RequestBody UserRequest userRequest
     ) {
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         UserResponse response = userService.updateUserById(id, userRequest);

@@ -1,7 +1,6 @@
 package net.courseproject.alex.veterinary.dto.transformer.impl;
 
 import net.courseproject.alex.veterinary.domain.Doctor;
-import net.courseproject.alex.veterinary.domain.Role;
 import net.courseproject.alex.veterinary.domain.Service;
 import net.courseproject.alex.veterinary.dto.DoctorDto;
 import net.courseproject.alex.veterinary.dto.ServiceDto;
@@ -30,11 +29,6 @@ public class ServiceTransformerProvider {
                     .setEmail(doctor.getEmail())
                     .setPhone(doctor.getPhone())
                     .setUserPic(doctor.getUserPic())
-                    .setRoles(doctor.getRoles()
-                            .stream()
-                            .map(Role::getName)
-                            .collect(Collectors.toList())
-                    )
                     .setLastVisit(doctor.getLastVisit())
                     .setStatus(doctor.getStatus())
                     .setFio(doctor.getFio())
