@@ -15,31 +15,21 @@ import javax.validation.constraints.Pattern;
 @Data
 @Accessors(chain = true)
 public class UserRequest {
-    @NotBlank
     @JsonProperty("firstName")
     private String firstName;
-    @NotBlank
     @JsonProperty("lastName")
     private String lastName;
-    @NotBlank
     @JsonProperty("patronymic")
     private String patronymic;
-    @NotBlank
     @JsonProperty("email")
     private String email;
-    @NotBlank
     @JsonProperty("phone")
     @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
     private String phone;
-    @NotBlank
-    @JsonProperty("password")
-    private String password;
     @JsonProperty("userPic")
     private String userPic;
-    @NotBlank
     @JsonProperty("locale")
     private String locale;
-    @NotNull
     @JsonDeserialize
     private Gender gender;
 
