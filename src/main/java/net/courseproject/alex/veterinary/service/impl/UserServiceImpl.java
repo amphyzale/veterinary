@@ -26,8 +26,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<UserResponse> findUser(Long id, String email, String fio) {
-        return userManager.findUser(id, email, fio);
+    public List<UserResponse> findUser(String searchQuery) {
+        return userManager.findUser(searchQuery);
     }
 
     @Override

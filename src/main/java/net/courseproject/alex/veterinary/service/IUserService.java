@@ -8,7 +8,7 @@ import java.util.List;
 public interface IUserService {
     List<UserResponse> getAllUsers();
     UserResponse getProfile();
-    List<UserResponse> findUser(Long id, String email, String fio);
+    List<UserResponse> findUser(String searchQuery);
     UserResponse updateProfile(UserRequest userRequest);
     UserResponse updateUserById(Long id, UserRequest userRequest);
     UserResponse deleteProfile();

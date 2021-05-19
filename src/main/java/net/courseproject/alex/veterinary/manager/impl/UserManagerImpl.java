@@ -11,12 +11,14 @@ import net.courseproject.alex.veterinary.manager.IAuthenticationManager;
 import net.courseproject.alex.veterinary.manager.IUserManager;
 import net.courseproject.alex.veterinary.repository.UserRepository;
 import net.courseproject.alex.veterinary.security.jwt.JwtUser;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,9 +51,16 @@ public class UserManagerImpl implements IUserManager {
     }
 
     @Override
-    public List<UserResponse> findUser(Long id, String email, String fio) {
-        return userRepository.findUsersByIdOrEmailContainingOrFioContaining(id, email, fio)
+    public List<UserResponse> findUser(String searchQuery) {
+        if (NumberUtils.isDigits(searchQuery)) {
+            return Collections.singletonList(
+                    transformer.transformToResponse(
+                            userRepository.findById(Long.parseLong(searchQuery)).orElseThrow(UnknownError::new))
+            );
+        }
+        return userRepository.findAll()
                 .stream()
+                .filter(i -> i.getEmail().contains(searchQuery) || i.getFio().contains(searchQuery))
                 .map(transformer::transformToResponse)
                 .collect(Collectors.toList());
     }
