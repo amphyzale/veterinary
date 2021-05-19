@@ -26,8 +26,8 @@ public class UserController {
     @GetMapping("/user")
     public ResponseEntity<List<UserResponse>> findUser(
             @RequestParam(name = "id", required = false, defaultValue = "0") Long id,
-            @RequestParam(name = "email", required = false, defaultValue = "") String email,
-            @RequestParam(name = "fio", required = false, defaultValue = "") String fio
+            @RequestParam(name = "email", required = false, defaultValue = "0") String email,
+            @RequestParam(name = "fio", required = false, defaultValue = ";") String fio
     ) {
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         List<UserResponse> response = userService.findUser(id, email, fio);
