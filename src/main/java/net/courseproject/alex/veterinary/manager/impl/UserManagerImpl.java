@@ -60,7 +60,7 @@ public class UserManagerImpl implements IUserManager {
         }
         return userRepository.findAll()
                 .stream()
-                .filter(i -> i.getEmail().contains(searchQuery) || i.getFio().contains(searchQuery))
+                .filter(i -> doFilter(searchQuery, i))
                 .map(transformer::transformToResponse)
                 .collect(Collectors.toList());
     }
@@ -141,6 +141,10 @@ public class UserManagerImpl implements IUserManager {
 
     private String buildFIO(UserRequest userRequest) {
         return String.format("%s %s %s", userRequest.getFirstName(), userRequest.getLastName(), userRequest.getPatronymic());
+    }
+
+    private boolean doFilter(String searchQuery, User i) {
+        return i.getEmail() != null && i.getEmail().contains(searchQuery) || i.getFio() != null && i.getFio().contains(searchQuery);
     }
 
 }
