@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import net.courseproject.alex.veterinary.domain.Gender;
+import net.courseproject.alex.veterinary.domain.Role;
 import net.courseproject.alex.veterinary.domain.Status;
 import net.courseproject.alex.veterinary.dto.ServiceDto;
 
@@ -31,5 +32,6 @@ public class DoctorResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startOfPractice;
     private String description;
+    private String role;
     private List<ServiceDto> services;
 }

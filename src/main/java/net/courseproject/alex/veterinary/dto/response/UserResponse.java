@@ -26,4 +26,5 @@ public class UserResponse {
     private List<String> roles;
     private String locale;
     private Gender gender;
+    private DoctorResponse doctorResponse;
 }

@@ -1,14 +1,15 @@
 package net.courseproject.alex.veterinary.manager.impl;
 
 import lombok.RequiredArgsConstructor;
-import net.courseproject.alex.veterinary.domain.Gender;
-import net.courseproject.alex.veterinary.domain.Status;
-import net.courseproject.alex.veterinary.domain.User;
+import net.courseproject.alex.veterinary.domain.*;
 import net.courseproject.alex.veterinary.dto.request.UserRequest;
+import net.courseproject.alex.veterinary.dto.response.DoctorResponse;
 import net.courseproject.alex.veterinary.dto.response.UserResponse;
+import net.courseproject.alex.veterinary.dto.transformer.impl.DoctorTransformerProvider;
 import net.courseproject.alex.veterinary.dto.transformer.impl.UserResponseTransformerProvider;
 import net.courseproject.alex.veterinary.manager.IAuthenticationManager;
 import net.courseproject.alex.veterinary.manager.IUserManager;
+import net.courseproject.alex.veterinary.repository.DoctorRepository;
 import net.courseproject.alex.veterinary.repository.UserRepository;
 import net.courseproject.alex.veterinary.security.jwt.JwtUser;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -30,6 +31,8 @@ public class UserManagerImpl implements IUserManager {
     private final UserRepository userRepository;
     private final IAuthenticationManager authenticationManager;
     private final UserResponseTransformerProvider transformer;
+    private final DoctorRepository doctorRepository;
+    private final DoctorTransformerProvider doctorTransformerProvider;
 
     @Override
     public List<UserResponse> getAllUsers() {
@@ -46,8 +49,14 @@ public class UserManagerImpl implements IUserManager {
     public UserResponse getProfile() {
         SecurityContext context = SecurityContextHolder.getContext();
         Long id = ((JwtUser) context.getAuthentication().getPrincipal()).getId();
-        Optional<User> user = userRepository.findById(id);
-        return transformer.transformToResponse(user.orElseThrow(UnknownError::new));
+        User user = userRepository.findById(id).orElseThrow(UnknownError::new);
+        UserResponse result = transformer.transformToResponse(user);
+        if (user.getRoles().stream().map(Role::getName).anyMatch("DOCTOR"::contains)) {
+            Doctor doctor = doctorRepository.findByEmail(user.getEmail());
+            DoctorResponse response = doctorTransformerProvider.transformDomainTo(doctor);
+            result.setDoctorResponse(response);
+        }
+        return result;
     }
 
     @Override

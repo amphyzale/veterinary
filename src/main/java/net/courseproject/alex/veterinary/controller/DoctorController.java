@@ -1,6 +1,7 @@
 package net.courseproject.alex.veterinary.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.courseproject.alex.veterinary.dto.request.DoctorRegisterRequest;
 import net.courseproject.alex.veterinary.dto.request.DoctorRequest;
 import net.courseproject.alex.veterinary.dto.response.DoctorResponse;
 import net.courseproject.alex.veterinary.service.IDoctorService;
@@ -59,6 +60,13 @@ public class DoctorController {
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         doctorService.deleteDoctorById(id);
         return responseEntity.body("deleted");
+    }
+
+    @PutMapping("/register")
+    public ResponseEntity<DoctorResponse> register(@RequestBody DoctorRegisterRequest doctorRegisterRequest) {
+        ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
+        DoctorResponse response = doctorService.register(doctorRegisterRequest);
+        return responseEntity.body(response);
     }
 
 }

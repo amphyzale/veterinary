@@ -33,6 +33,7 @@ public class DoctorTransformerProvider {
                 .setDescription(domain.getDescription())
                 .setStartOfPractice(domain.getStartOfPractice())
                 .setSpecialization(domain.getSpecialization())
+                .setRole("DOCTOR")
                 .setServices(getServicesFromDomain(domain.getServices()));
     }
 

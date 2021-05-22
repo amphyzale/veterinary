@@ -8,4 +8,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     Doctor findByEmailAndStatus(String email, Status status);
 
+    Doctor findByEmail(String email);
+
 }

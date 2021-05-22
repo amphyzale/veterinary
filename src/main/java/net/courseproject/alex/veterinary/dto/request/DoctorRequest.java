@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import net.courseproject.alex.veterinary.domain.Status;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,15 +18,20 @@ public class DoctorRequest {
     private String lastName;
     private String patronymic;
     private String userPic;
+    @NotNull
     private String email;
     private String phone;
     private String locale;
     @JsonDeserialize
     private Gender gender;
+    @NotNull
     private String specialization;
+    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startOfPractice;
+    @NotNull
     private String description;
+    @NotNull
     private List<String> services;
 
     public enum Gender {

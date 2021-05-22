@@ -1,6 +1,7 @@
 package net.courseproject.alex.veterinary.manager.impl;
 
 import lombok.RequiredArgsConstructor;
+import net.courseproject.alex.veterinary.domain.Doctor;
 import net.courseproject.alex.veterinary.domain.Role;
 import net.courseproject.alex.veterinary.domain.Status;
 import net.courseproject.alex.veterinary.domain.User;
@@ -9,17 +10,21 @@ import net.courseproject.alex.veterinary.dto.request.AuthenticationRequest;
 import net.courseproject.alex.veterinary.dto.request.UserRegisterRequest;
 import net.courseproject.alex.veterinary.dto.response.LoginResponse;
 import net.courseproject.alex.veterinary.dto.response.UserRegisterResponse;
+import net.courseproject.alex.veterinary.dto.transformer.impl.DoctorTransformerProvider;
 import net.courseproject.alex.veterinary.dto.transformer.impl.UserRegisterRequestTransformerProviderImpl;
 import net.courseproject.alex.veterinary.dto.transformer.impl.UserTransformerProvider;
 import net.courseproject.alex.veterinary.exception.UserAlreadyExistsException;
 import net.courseproject.alex.veterinary.manager.IAuthenticationManager;
+import net.courseproject.alex.veterinary.repository.DoctorRepository;
 import net.courseproject.alex.veterinary.repository.RoleRepository;
+import net.courseproject.alex.veterinary.repository.ServiceRepository;
 import net.courseproject.alex.veterinary.repository.UserRepository;
 import net.courseproject.alex.veterinary.security.jwt.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -39,6 +44,8 @@ public class AuthenticationManagerImpl implements IAuthenticationManager {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserTransformerProvider userTransformerProvider;
+    private final DoctorRepository doctorRepository;
+    private final ServiceRepository serviceRepository;
 
     @Override
     public LoginResponse login(AuthenticationRequest requestDto) {
@@ -66,7 +73,21 @@ public class AuthenticationManagerImpl implements IAuthenticationManager {
         }
         User user = new User();
         guestTransformerProvider.transformDtoToDomain(userRegisterRequest, user);
-        user.setRoles(Collections.singletonList(roleRepository.findByName(USER_ROLE)));
+        if (SecurityContextHolder.getContext() != null && hasAdministratorRole(SecurityContextHolder.getContext())) {
+            if (userRegisterRequest.getRoles() != null && userRegisterRequest.getRoles().contains("DOCTOR")) {
+                user.setRoles(roleRepository.findByNameIn(userRegisterRequest.getRoles()));
+                Doctor doctor = new Doctor();
+                doctor.setSpecialization(userRegisterRequest.getDoctorRequest().getSpecialization());
+                doctor.setUsername(userRegisterRequest.getEmail());
+                doctor.setEmail(userRegisterRequest.getEmail());
+                doctor.setDescription(userRegisterRequest.getDoctorRequest().getDescription());
+                doctor.setStartOfPractice(userRegisterRequest.getDoctorRequest().getStartOfPractice());
+                doctor.setServices(serviceRepository.findAllByNameIn(userRegisterRequest.getDoctorRequest().getServices()));
+                doctorRepository.save(doctor);
+            }
+        } else {
+            user.setRoles(Collections.singletonList(roleRepository.findByName(USER_ROLE)));
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(Status.ACTIVE);
         user.setCreated(LocalDateTime.now());

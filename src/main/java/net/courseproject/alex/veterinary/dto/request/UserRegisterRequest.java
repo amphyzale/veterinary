@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Getter
 @Setter
@@ -43,6 +44,8 @@ public class UserRegisterRequest {
     @NotNull
     @JsonDeserialize
     private Gender gender;
+    private List<String> roles;
+    private DoctorRequest doctorRequest;
 
     public enum Gender {
         MALE("MALE"),
