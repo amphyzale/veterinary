@@ -4,6 +4,8 @@ import net.courseproject.alex.veterinary.domain.Doctor;
 import net.courseproject.alex.veterinary.domain.Service;
 import net.courseproject.alex.veterinary.dto.DoctorDto;
 import net.courseproject.alex.veterinary.dto.ServiceDto;
+import net.courseproject.alex.veterinary.dto.request.ServiceRequest;
+import net.courseproject.alex.veterinary.dto.response.ServiceResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,8 +14,8 @@ import java.util.stream.Collectors;
 @Component
 public class ServiceTransformerProvider {
 
-    public static ServiceDto transformDomainToDto(Service domain) {
-        return new ServiceDto()
+    public ServiceResponse transformDomainTo(Service domain) {
+        return new ServiceResponse()
                 .setName(domain.getName())
                 .setDescription(domain.getDescription())
                 .setDuration(domain.getDuration())
@@ -21,7 +23,7 @@ public class ServiceTransformerProvider {
                 .setDoctors(getDoctorsFromDomain(domain.getDoctors()));
     }
 
-    private static List<DoctorDto> getDoctorsFromDomain(List<Doctor> doctors) {
+    private List<DoctorDto> getDoctorsFromDomain(List<Doctor> doctors) {
         return doctors.stream().map(doctor -> new DoctorDto()
                     .setFirstName(doctor.getFirstName())
                     .setLastName(doctor.getLastName())
@@ -45,7 +47,14 @@ public class ServiceTransformerProvider {
         dto.setPrice(domain.getPrice());
     }
 
-    public void transformDtoToDomain(ServiceDto dto, Service domain) {
-
+    public Service transformToDomain(ServiceRequest serviceRequest) {
+        Service service = new Service();
+        service.setName(serviceRequest.getName());
+        service.setDescription(serviceRequest.getDescription());
+        service.setPrice(serviceRequest.getPrice());
+        service.setImage(serviceRequest.getImage());
+        service.setDuration(serviceRequest.getDuration());
+        service.setPromo(service.isPromo());
+        return service;
     }
 }

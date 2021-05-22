@@ -97,4 +97,9 @@ public class AuthenticationManagerImpl implements IAuthenticationManager {
     public boolean hasGrandAdminRole(SecurityContext context) {
         return context.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("GRAND_ADMIN"));
     }
+
+    @Override
+    public User getUser(SecurityContext context) {
+        return userRepository.findByUsernameAndStatus(context.getAuthentication().getName(), Status.ACTIVE);
+    }
 }

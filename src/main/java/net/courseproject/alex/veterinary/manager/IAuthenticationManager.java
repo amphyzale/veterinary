@@ -1,5 +1,6 @@
 package net.courseproject.alex.veterinary.manager;
 
+import net.courseproject.alex.veterinary.domain.User;
 import net.courseproject.alex.veterinary.dto.request.AuthenticationRequest;
 import net.courseproject.alex.veterinary.dto.request.UserRegisterRequest;
 import net.courseproject.alex.veterinary.dto.response.LoginResponse;
@@ -13,4 +14,5 @@ public interface IAuthenticationManager {
     boolean hasAdministratorRole(SecurityContext context);
     boolean hasDoctorRole(SecurityContext context);
     boolean hasGrandAdminRole(SecurityContext context);
+    User getUser(SecurityContext context);
 }

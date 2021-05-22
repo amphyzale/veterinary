@@ -30,7 +30,11 @@ public class Service extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "service_id", referencedColumnName = "id")})
     private List<Doctor> doctors;
 
+    @Column(name = "image")
     private String image;
+
+    @Column(name = "isPromo")
+    private boolean isPromo;
 
     public Service() {
     }
@@ -89,5 +93,13 @@ public class Service extends BaseEntity {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isPromo() {
+        return isPromo;
+    }
+
+    public void setPromo(boolean promo) {
+        isPromo = promo;
     }
 }

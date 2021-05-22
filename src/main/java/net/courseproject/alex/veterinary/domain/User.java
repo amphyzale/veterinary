@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_data")
@@ -55,6 +56,8 @@ public class User extends BaseEntity implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "last_visit")
     private LocalDateTime lastVisit;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Pet> pets;
 
     public User() {
     }
