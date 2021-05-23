@@ -82,6 +82,7 @@ public class AuthenticationManagerImpl implements IAuthenticationManager {
                 doctor.setEmail(userRegisterRequest.getEmail());
                 doctor.setDescription(userRegisterRequest.getDoctorRequest().getDescription());
                 doctor.setStartOfPractice(userRegisterRequest.getDoctorRequest().getStartOfPractice());
+                doctor.setPassword(userRegisterRequest.getPassword());
                 doctor.setServices(serviceRepository.findAllByNameIn(userRegisterRequest.getDoctorRequest().getServices()));
                 doctorRepository.save(doctor);
             }
