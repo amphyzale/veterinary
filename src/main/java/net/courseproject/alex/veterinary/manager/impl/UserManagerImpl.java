@@ -141,7 +141,7 @@ public class UserManagerImpl implements IUserManager {
         user.setEmail(userRequest.getEmail());
         user.setPhone(userRequest.getPhone());
         user.setLocale(userRequest.getLocale());
-        user.setGender(Gender.valueOf(userRequest.getGender().name()));
+        user.setGender(Gender.fromValue(userRequest.getGender().name()));
         LocalDateTime now = LocalDateTime.now();
         user.setUpdated(now);
         user.setLastVisit(now);

@@ -138,7 +138,7 @@ public class DoctorManagerImpl implements IDoctorManager {
         doctor.setEmail(doctorRequest.getEmail());
         doctor.setPhone(doctorRequest.getPhone());
         doctor.setLocale(doctorRequest.getLocale());
-        doctor.setGender(Gender.valueOf(doctorRequest.getGender().name()));
+        doctor.setGender(Gender.fromValue(doctorRequest.getGender().name()));
         LocalDateTime now = LocalDateTime.now();
         doctor.setUpdated(now);
         doctor.setLastVisit(now);

@@ -1,7 +1,7 @@
 package net.courseproject.alex.veterinary.domain;
 
 public enum Gender {
-    ALE("MALE"),
+    MALE("MALE"),
 
     FEMALE("FEMALE"),
 

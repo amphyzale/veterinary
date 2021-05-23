@@ -54,7 +54,7 @@ public class DoctorTransformerProvider {
         doctor.setPatronymic(doctorRequest.getPatronymic());
         doctor.setFio(buildFIO(doctorRequest));
         doctor.setEmail(doctorRequest.getEmail());
-        doctor.setGender(Gender.valueOf(doctorRequest.getGender().name()));
+        doctor.setGender(Gender.fromValue(doctorRequest.getGender().name()));
         doctor.setLocale(doctorRequest.getLocale());
         doctor.setPhone(doctorRequest.getPhone());
         doctor.setUserPic(doctorRequest.getUserPic());
@@ -76,7 +76,7 @@ public class DoctorTransformerProvider {
         doctor.setPatronymic(doctorRequest.getPatronymic());
         doctor.setFio(buildFIO(doctorRequest));
         doctor.setEmail(doctorRequest.getEmail());
-        doctor.setGender(Gender.valueOf(doctorRequest.getGender().name()));
+        doctor.setGender(Gender.fromValue(doctorRequest.getGender().name()));
         doctor.setLocale(doctorRequest.getLocale());
         doctor.setPhone(doctorRequest.getPhone());
         doctor.setUserPic(doctorRequest.getUserPic());
