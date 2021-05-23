@@ -15,6 +15,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class DoctorResponse {
+    private Long id;
     private String firstName;
     private String lastName;
     private String patronymic;
@@ -25,7 +26,6 @@ public class DoctorResponse {
     private String phone;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastVisit;
-    private List<String> roles;
     private String locale;
     private Gender gender;
     private String specialization;

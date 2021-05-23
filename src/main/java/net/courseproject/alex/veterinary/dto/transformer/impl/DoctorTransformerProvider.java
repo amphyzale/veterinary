@@ -19,6 +19,7 @@ public class DoctorTransformerProvider {
 
     public DoctorResponse transformDomainTo(Doctor domain) {
         return new DoctorResponse()
+                .setId(domain.getId())
                 .setFirstName(domain.getFirstName())
                 .setLastName(domain.getLastName())
                 .setPatronymic(domain.getPatronymic())
