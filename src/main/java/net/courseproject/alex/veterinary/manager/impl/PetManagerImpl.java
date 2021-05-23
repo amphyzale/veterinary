@@ -41,6 +41,11 @@ public class PetManagerImpl implements IPetManager {
 
     @Override
     public List<PetResponse> getPets() {
+        if (authenticationManager.hasAdministratorRole(SecurityContextHolder.getContext())) {
+            return petRepository.findAll().stream()
+                    .map(transformer::transformDomainTo)
+                    .collect(Collectors.toList());
+        }
         User user = authenticationManager.getUser(SecurityContextHolder.getContext());
         return petRepository.findAllByOwner(user).stream()
                 .map(transformer::transformDomainTo)
