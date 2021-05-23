@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String PET_ENDPOINT = "/veterinary/v1/pets/**";
     private static final String DOCTOR_ENDPOINT = "/veterinary/v1/doctors/**";
     private static final String SERVICE_ENDPOINT = "/veterinary/v1/services/**";
+    private static final String APPOINT_ENDPOINT = "/veterinary/v1/appointment/**";
 
     @Bean
     @Override
@@ -55,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(DOCTOR_ENDPOINT).hasAnyAuthority(USER_ROLE, GRAND_ADMIN_ROLE, ADMINISTRATOR_ROLE, DOCTOR_ROLE)
                 .antMatchers(SERVICE_ENDPOINT).hasAnyAuthority(USER_ROLE, GRAND_ADMIN_ROLE, ADMINISTRATOR_ROLE, DOCTOR_ROLE)
                 .antMatchers(PET_ENDPOINT).hasAnyAuthority(USER_ROLE, GRAND_ADMIN_ROLE, ADMINISTRATOR_ROLE, DOCTOR_ROLE)
+                .antMatchers(APPOINT_ENDPOINT).hasAnyAuthority(USER_ROLE, GRAND_ADMIN_ROLE, ADMINISTRATOR_ROLE, DOCTOR_ROLE)
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
