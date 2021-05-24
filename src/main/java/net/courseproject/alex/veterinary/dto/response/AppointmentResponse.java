@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class AppointmentResponse {
     private Long id;
-    @JsonProperty("start_date")
+    @JsonProperty("startDate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime start;
-    @JsonProperty("end_date")
+    @JsonProperty("endDate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime end;
     private ServiceResponse service;
