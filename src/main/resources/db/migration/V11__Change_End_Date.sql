@@ -1,1 +1,1 @@
-alter table if exists appointment rename column date_and to date_end
+alter table if exists appointment drop column date_and
