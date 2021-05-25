@@ -7,7 +7,9 @@ import net.courseproject.alex.veterinary.dto.ServiceDto;
 import net.courseproject.alex.veterinary.dto.request.ServiceRequest;
 import net.courseproject.alex.veterinary.dto.response.ServiceResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,9 @@ public class ServiceTransformerProvider {
     }
 
     private List<DoctorDto> getDoctorsFromDomain(List<Doctor> doctors) {
+        if (CollectionUtils.isEmpty(doctors)) {
+            return Collections.emptyList();
+        }
         return doctors.stream().map(doctor -> new DoctorDto()
                     .setFirstName(doctor.getFirstName())
                     .setLastName(doctor.getLastName())
