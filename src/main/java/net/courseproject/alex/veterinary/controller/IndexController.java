@@ -34,7 +34,7 @@ public class IndexController {
         return responseEntity.body(response);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all_services")
     public ResponseEntity<List<ServiceResponse>> getServices(){
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         List<ServiceResponse> response = veterinaryServiceService.getServices();
