@@ -11,6 +11,7 @@ import net.courseproject.alex.veterinary.dto.ServiceDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Accessors(chain = true)
@@ -33,5 +34,5 @@ public class DoctorResponse {
     private LocalDate startOfPractice;
     private String description;
     private String role;
-    private List<ServiceDto> services;
+    private Set<ServiceDto> services;
 }

@@ -200,6 +200,14 @@ public class User extends BaseEntity implements Serializable {
         this.lastVisit = lastVisit;
     }
 
+    public Set<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

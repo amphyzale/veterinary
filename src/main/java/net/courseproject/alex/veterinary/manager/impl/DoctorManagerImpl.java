@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class DoctorManagerImpl implements IDoctorManager {
         }
         Doctor doctor = transformer.transformToDomain(doctorRequest);
         doctor.setPassword(passwordEncoder.encode(doctorRequest.getPassword()));
-        doctor.setServices(serviceRepository.findAllByNameIn(doctorRequest.getServices()));
+        doctor.setServices(new HashSet<>(serviceRepository.findAllByNameIn(doctorRequest.getServices())));
         return transformer.transformDomainTo(doctorRepository.save(doctor));
     }
 

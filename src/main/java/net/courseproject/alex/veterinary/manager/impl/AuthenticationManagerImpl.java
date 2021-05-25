@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Component
@@ -83,7 +84,7 @@ public class AuthenticationManagerImpl implements IAuthenticationManager {
                 doctor.setDescription(userRegisterRequest.getDoctorRequest().getDescription());
                 doctor.setStartOfPractice(userRegisterRequest.getDoctorRequest().getStartOfPractice());
                 doctor.setPassword(userRegisterRequest.getPassword());
-                doctor.setServices(serviceRepository.findAllByNameIn(userRegisterRequest.getDoctorRequest().getServices()));
+                doctor.setServices(new HashSet<>(serviceRepository.findAllByNameIn(userRegisterRequest.getDoctorRequest().getServices())));
                 doctorRepository.save(doctor);
             }
         } else {

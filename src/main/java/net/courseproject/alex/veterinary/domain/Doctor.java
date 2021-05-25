@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "doctor")
@@ -70,8 +71,11 @@ public class Doctor extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "doctors", fetch = FetchType.LAZY)
-    private List<Service> services;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "doctor_services",
+            joinColumns = {@JoinColumn(name = "doctor_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "service_id", referencedColumnName = "id")})
+    private Set<Service> services;
 
     public Doctor() {
     }
@@ -212,11 +216,11 @@ public class Doctor extends BaseEntity {
         this.description = description;
     }
 
-    public List<Service> getServices() {
+    public Set<Service> getServices() {
         return services;
     }
 
-    public void setServices(List<Service> services) {
+    public void setServices(Set<Service> services) {
         this.services = services;
     }
 }

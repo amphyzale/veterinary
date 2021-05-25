@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,13 +39,13 @@ public class DoctorTransformerProvider {
                 .setServices(getServicesFromDomain(domain.getServices()));
     }
 
-    private List<ServiceDto> getServicesFromDomain(List<Service> services) {
+    private Set<ServiceDto> getServicesFromDomain(Set<Service> services) {
         return services.stream().map(service -> new ServiceDto()
                     .setName(service.getName())
                     .setDescription(service.getDescription())
                     .setDuration(service.getDuration())
                     .setPrice(service.getPrice()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     public Doctor transformToDomain(DoctorRegisterRequest doctorRequest) {

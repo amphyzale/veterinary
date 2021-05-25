@@ -24,16 +24,13 @@ public class Service extends BaseEntity {
     @Column(name = "duration")
     private Integer duration;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "doctor_services",
-            joinColumns = {@JoinColumn(name = "doctor_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "service_id", referencedColumnName = "id")})
+    @ManyToMany(mappedBy = "services", fetch = FetchType.LAZY)
     private List<Doctor> doctors;
 
     @Column(name = "image")
     private String image;
 
-    @Column(name = "isPromo")
+    @Column(name = "is_promo")
     private boolean isPromo;
 
     public Service() {
