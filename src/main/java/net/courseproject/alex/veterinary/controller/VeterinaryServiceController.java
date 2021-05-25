@@ -25,29 +25,22 @@ public class VeterinaryServiceController {
         return responseEntity.body(response);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<ServiceResponse>> getPets(){
-        ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
-        List<ServiceResponse> response = veterinaryServiceService.getServices();
-        return responseEntity.body(response);
-    }
-
     @GetMapping("/service")
-    public ResponseEntity<ServiceResponse> getPetsByUserId(@RequestParam Long id){
+    public ResponseEntity<ServiceResponse> getServiceById(@RequestParam Long id){
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         ServiceResponse response = veterinaryServiceService.getServiceById(id);
         return responseEntity.body(response);
     }
 
     @PatchMapping("/update_service")
-    public ResponseEntity<ServiceResponse> updatePet(@RequestBody ServiceRequest serviceRequest, @RequestParam Long id){
+    public ResponseEntity<ServiceResponse> updateService(@RequestBody ServiceRequest serviceRequest, @RequestParam Long id){
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         ServiceResponse response = veterinaryServiceService.updateService(serviceRequest, id);
         return responseEntity.body(response);
     }
 
     @DeleteMapping("/delete_service")
-    public ResponseEntity<String> deletePet(@RequestParam Long id) {
+    public ResponseEntity<String> deleteService(@RequestParam Long id) {
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
         veterinaryServiceService.deleteService(id);
         return responseEntity.body("deleted");

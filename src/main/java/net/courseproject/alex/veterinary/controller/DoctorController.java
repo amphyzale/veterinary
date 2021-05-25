@@ -31,13 +31,6 @@ public class DoctorController {
         return responseEntity.body(response);
     }
 
-    @GetMapping("/all_doctors")
-    public ResponseEntity<List<DoctorResponse>> getAllDoctors() {
-        ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
-        List<DoctorResponse> response = doctorService.getAllDoctors();
-        return responseEntity.body(response);
-    }
-
     @PatchMapping("/update_profile")
     public ResponseEntity<DoctorResponse> updateProfile(@RequestBody DoctorRequest doctorRequest) {
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
