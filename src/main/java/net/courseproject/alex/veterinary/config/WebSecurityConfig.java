@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_ENDPOINT = "/veterinary/v1/auth/login";
     private static final String REGISTER_ENDPOINT = "/veterinary/v1/auth/register";
     private static final String PROFILE_ENDPOINT = "/veterinary/v1/users/**";
-    private static final String INDEX_ENDPOINT = "/veterinary/v1/index";
+    private static final String INDEX_ENDPOINT = "/veterinary/v1/index/**";
     private static final String PET_ENDPOINT = "/veterinary/v1/pets/**";
     private static final String DOCTOR_ENDPOINT = "/veterinary/v1/doctors/**";
     private static final String SERVICE_ENDPOINT = "/veterinary/v1/services/**";

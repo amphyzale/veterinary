@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class ServiceResponse {
+    private Long id;
     private String name;
     private String description;
     private BigDecimal price;

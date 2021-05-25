@@ -18,6 +18,7 @@ public class ServiceTransformerProvider {
 
     public ServiceResponse transformDomainTo(Service domain) {
         return new ServiceResponse()
+                .setId(domain.getId())
                 .setName(domain.getName())
                 .setDescription(domain.getDescription())
                 .setDuration(domain.getDuration())
