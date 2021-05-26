@@ -23,6 +23,7 @@ public class ServiceTransformerProvider {
                 .setDescription(domain.getDescription())
                 .setDuration(domain.getDuration())
                 .setPrice(domain.getPrice())
+                .setImage(domain.getImage())
                 .setDoctors(getDoctorsFromDomain(domain.getDoctors()));
     }
 

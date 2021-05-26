@@ -16,5 +16,6 @@ public class ServiceResponse {
     private String description;
     private BigDecimal price;
     private Integer duration;
+    private String image;
     private List<DoctorDto> doctors;
 }
