@@ -56,9 +56,6 @@ public class DoctorManagerImpl implements IDoctorManager {
 
     @Override
     public List<DoctorResponse> getAllDoctors() {
-        if (!authenticationManager.hasAdministratorRole(SecurityContextHolder.getContext())) {
-            throw new AuthorizationServiceException("Authorization error");
-        }
         return doctorRepository.findAll()
                 .stream()
                 .map(transformer::transformDomainTo)

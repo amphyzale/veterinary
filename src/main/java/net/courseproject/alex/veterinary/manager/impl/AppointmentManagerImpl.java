@@ -43,7 +43,7 @@ public class AppointmentManagerImpl implements IAppointmentManager {
     }
 
     @Override
-    public List<AppointmentResponse> getAllAppoints() {
+    public List<AppointmentResponse> getAllAppointsForUser() {
         if (authenticationManager.hasAdministratorRole(SecurityContextHolder.getContext())) {
             return appointmentRepository.findAll().stream()
                     .map(appointmentTransformer::transformDomainTo)
@@ -51,6 +51,13 @@ public class AppointmentManagerImpl implements IAppointmentManager {
         }
         User user = authenticationManager.getUser(SecurityContextHolder.getContext());
         return appointmentRepository.findByUserId(user.getId()).stream()
+                .map(appointmentTransformer::transformDomainTo)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AppointmentResponse> getAllAppoints() {
+        return appointmentRepository.findAll().stream()
                 .map(appointmentTransformer::transformDomainTo)
                 .collect(Collectors.toList());
     }

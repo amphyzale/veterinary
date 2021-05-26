@@ -8,6 +8,7 @@ import java.util.List;
 public interface IAppointmentManager {
     AppointmentResponse getAppoint(AppointmentRequest appointmentRequest);
     List<AppointmentResponse> getAllAppoints();
+    List<AppointmentResponse> getAllAppointsForUser();
     List<AppointmentResponse> getAllAppointsByUserId(Long userId);
     List<AppointmentResponse> getAllAppointsByDoctorId(Long doctorId);
     List<AppointmentResponse> getAllAppointsByPetId(Long petId);

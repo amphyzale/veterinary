@@ -19,7 +19,7 @@ public class AppointmentController {
     @GetMapping("/all")
     public ResponseEntity<List<AppointmentResponse>> getAllAppoints() {
         ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(200);
-        List<AppointmentResponse> response = appointmentService.getAllAppoints();
+        List<AppointmentResponse> response = appointmentService.getAllAppointsForUser();
         return responseEntity.body(response);
     }
 

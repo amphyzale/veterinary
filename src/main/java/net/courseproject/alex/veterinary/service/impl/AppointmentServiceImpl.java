@@ -26,6 +26,11 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
+    public List<AppointmentResponse> getAllAppointsForUser() {
+        return appointmentManager.getAllAppointsForUser();
+    }
+
+    @Override
     public List<AppointmentResponse> getAllAppointsByUserId(Long userId) {
         return appointmentManager.getAllAppointsByUserId(userId);
     }
